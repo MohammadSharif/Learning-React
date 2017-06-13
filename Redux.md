@@ -114,7 +114,7 @@ In the above we see that after the reducer function was called the text field wa
 
 #### Store Methods
 
-There are a few different store methods that will be of use when building a Redux application. The first one is the **getState()** method, which when called will return the state of the redux store. The second method is the **dispatch()** method. When this method is called with a action type, it will perform the specified action to change the state of the application. The final method is **subscribe()** which will allow registering a callback that the redux store will call whenever a state is changed so that the UI can be updated to reflect the changes. It basically enables a listener for our store.
+There are a few different store methods that will be of use when building a Redux application. The first one is the **getState()** method, which when called will return the state of the redux store. The second method is the **dispatch(action)** method. When this method is called with a action type, it will perform the specified action to change the state of the application. The final method is **subscribe(listener)** which will allow registering a callback that the redux store will call whenever a state is changed so that the UI can be updated to reflect the changes. It basically enables a listener for our store.
 
 The following are examples of the three different methods:
 
@@ -147,3 +147,24 @@ store.subscribe(() => {
 document.addEventListener('click', () => {
   store.dispatch({type: 'INCREMENT'});
 });
+```
+
+#### Avoiding Mutations
+
+Making sure we don't mutate data allows for more consistency around our overall program. If we modify a piece of data in our application that something else is dependent on then it will alter the overall application. When looking at large scale applications or even making an application that can be scalable in the future taking a pure approach will benefit in the long run.
+
+##### Avoiding Array Mutations
+
+There are three methods to look at when wanting to work with arrays but not modify the data in the original structure. The first method is the **concat(arrays or values)** method which will add a value or values to to an array but returns the new array instead of modifying the original. The second method is **slice(beginIndex, endIndex)** which takes two parameters and will return a portion of the array within that range, this does not mutate the original array.
+
+```javascript
+const listBeforeConcat = [];
+const listAfterConcat = listBeforeConcat.concat([1]);
+console.log(listAfterConcat);
+// Returns [1]
+
+const listBeforeSlice = [1, 2, 3, 4];
+const listAfterSlice = listBeforeSlice.slice(2,4);
+console.log(listAfterSlice);
+// Returns [3, 4]
+```

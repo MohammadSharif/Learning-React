@@ -3,6 +3,7 @@ This document will be a collection of my notes as I learn Redux, I will also pos
 
 ## Supplements
 http://redux.js.org/
+
 https://egghead.io/series/getting-started-with-redux
 
 Redux is a tool that was made to help write web apps that have consistent behavior, can run in different environments, and are pretty simple when it comes to testing.
@@ -46,7 +47,7 @@ For a more complex state tree, which tends to be the case for many web applicati
   people: [[object Object] {
     friend: false,
     id: 0,
-    text: "Mohammad Sharif"
+    name: "Mohammad Sharif"
   }]
 }
 ```
@@ -67,3 +68,46 @@ const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS'
   }
 }
 ```
+
+###### Pure/Impure Functions
+
+Pure and Impure are just two words to describe whether functions alter existing data or not. Pure functions do not modify any data where as Impure functions will modify and store the changed data. Pretty simple stuff!
+
+```javascript
+// Pure
+function square(x) {
+  return x * x;
+}
+//Impure
+function square(x) {
+  changeXInDataBase(x);
+  return x * x;
+}
+```
+
+###### The Reducer Function
+
+All redux applications must implement the reducer which is a function that calculates the next state tree based off what the previous state tree was and the action that has been specified. The reducer function is a pure function, which means it does not alter the previous state but it returns a new state tree.
+
+What makes redux fast is that when there is a state mutation, although a new state tree will be returned it will refer to the previous state to see which data was not altered. So for example:
+
+```javascript
+// Initial State
+[object Object] {
+  friends: [object: Object] {
+    name: "Johnny Appleseed",
+    age: "19"
+  },
+  text: "Hello!"
+}
+
+// Post mutation
+[object Object] {
+  friends: [object: Object] {
+    name: "Johnny Appleseed",
+    age: "19"
+  }
+}
+```
+
+In the above we see that after the reducer function was called the text field was removed from our state tree; however, the friends array stayed the same as it was before the function call. The reducer refers to the previous state and does not have to rewrite the new information, making redux fast.

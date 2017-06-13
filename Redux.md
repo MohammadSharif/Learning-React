@@ -27,13 +27,13 @@ npm install --save react-redux
 npm install --save-dev redux-devtools
 ```
 
-### The Big Picture
+## The Big Picture
 
 Redux has a specific way of approaching how states are handled. The entire state of the application is stored inside of an object tree inside of a since *store*. A store is an object, not necessarily a class, that has a few methods within it. The state tree of the application can only be modified through emitting an *action*, which is an object describing the changes that occured.
 
-### Redux Basics
+## Redux Basics
 
-###### The State Tree
+#### The State Tree
 
 The state of the application is represented by an immutable state tree. This tree will represent each change in the state of the application. This single object will hold the entire state of the application, for a simple application that has one stateful component maintaining a counter it can simply be something such as:
 ```javascript
@@ -52,7 +52,7 @@ For a more complex state tree, which tends to be the case for many web applicati
 }
 ```
 
-###### State changes
+#### State changes
 
 Anytime the state needs to be changed we must dispatch an action. The action represents the change that has occurred to the data on the page. Actions are also plain javascript objects; however, they require a type property that will indicate what kind of action is going to occur. If we want to perform an action on a specific component then we must supply our action with an index field (if the component is part of an array) or a unique key (this is better especially when building larger scale applications).
 
@@ -69,7 +69,7 @@ const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS'
 }
 ```
 
-###### Pure/Impure Functions
+#### Pure/Impure Functions
 
 Pure and Impure are just two words to describe whether functions alter existing data or not. Pure functions do not modify any data where as Impure functions will modify and store the changed data. Pretty simple stuff!
 
@@ -85,7 +85,7 @@ function square(x) {
 }
 ```
 
-###### The Reducer Function
+#### The Reducer Function
 
 All redux applications must implement the reducer which is a function that calculates the next state tree based off what the previous state tree was and the action that has been specified. The reducer function is a pure function, which means it does not alter the previous state but it returns a new state tree.
 

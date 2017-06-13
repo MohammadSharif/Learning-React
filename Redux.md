@@ -1,4 +1,9 @@
 # Learning Redux
+This document will be a collection of my notes as I learn Redux, I will also post the supplements that I have used to form this document below. Almost all of the information will be repeated within the supplements, it's just that I have noted them down in a way to gather the information collectively and written in a way to make it more understandable for myself.
+
+## Supplements
+http://redux.js.org/
+https://egghead.io/series/getting-started-with-redux
 
 Redux is a tool that was made to help write web apps that have consistent behavior, can run in different environments, and are pretty simple when it comes to testing.
 
@@ -19,4 +24,46 @@ Most likely the React bindings and the developer tools will also be needed and c
 ```
 npm install --save react-redux
 npm install --save-dev redux-devtools
+```
+
+### The Big Picture
+
+Redux has a specific way of approaching how states are handled. The entire state of the application is stored inside of an object tree inside of a since *store*. A store is an object, not necessarily a class, that has a few methods within it. The state tree of the application can only be modified through emitting an *action*, which is an object describing the changes that occured.
+
+### Redux Basics
+
+###### The State Tree
+
+The state of the application is represented by an immutable state tree. This tree will represent each change in the state of the application. This single object will hold the entire state of the application, for a simple application that has one stateful component maintaining a counter it can simply be something such as:
+```javascript
+[0] // Original State
+[1] // Increment
+[0] // Decrement
+```
+For a more complex state tree, which tends to be the case for many web applications it would look something like the following:
+```javascript
+[object Object] {
+  people: [[object Object] {
+    friend: false,
+    id: 0,
+    text: "Mohammad Sharif"
+  }]
+}
+```
+
+###### State changes
+
+Anytime the state needs to be changed we must dispatch an action. The action represents the change that has occurred to the data on the page. Actions are also plain javascript objects; however, they require a type property that will indicate what kind of action is going to occur. If we want to perform an action on a specific component then we must supply our action with an index field (if the component is part of an array) or a unique key (this is better especially when building larger scale applications).
+
+Here is an example of the format of an action:
+```javascript
+const ADD_TO_FRIENDS = 'ADD_TO_FRIENDS'
+{
+  type: ADD_TO_FRIENDS,
+  [object Object] {
+    name: 'Mohammad Sharif',
+    age: '21',
+    userID: '1234'
+  }
+}
 ```

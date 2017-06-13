@@ -111,3 +111,39 @@ What makes redux fast is that when there is a state mutation, although a new sta
 ```
 
 In the above we see that after the reducer function was called the text field was removed from our state tree; however, the friends array stayed the same as it was before the function call. The reducer refers to the previous state and does not have to rewrite the new information, making redux fast.
+
+#### Store Methods
+
+There are a few different store methods that will be of use when building a Redux application. The first one is the **getState()** method, which when called will return the state of the redux store. The second method is the **dispatch()** method. When this method is called with a action type, it will perform the specified action to change the state of the application. The final method is **subscribe()** which will allow registering a callback that the redux store will call whenever a state is changed so that the UI can be updated to reflect the changes. It basically enables a listener for our store.
+
+The following are examples of the three different methods:
+
+```javascript
+const scorekeeper = (state = 0, action) => {
+  switch(action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+    default:
+      return state;
+  }
+}
+// ES6 syntax similar effect as var createStore = Redux.createStore;
+const { createStore } = Redux;
+// Calling createStore with counter as the reducer to manage state updates
+const store = createStore(counter);
+
+store.getState(); // will return 0, the initial state of application
+
+store.dispatch({type: 'INCREMENT'}); // This will dispatch the increment action
+store.getState(); // will now return 1 due to the increment action
+
+// Creates a listener so that each time the state changes the UI is updated
+store.subscribe(() => {
+  document.body.innerText = store.getState();
+});
+
+document.addEventListener('click', () => {
+  store.dispatch({type: 'INCREMENT'});
+});

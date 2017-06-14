@@ -1,4 +1,5 @@
-![Redux Image](https://d2eip9sf3oo6c2.cloudfront.net/series/square_covers/000/000/025/full/EGH_Redux-New.png?1496436379){:height="50%" width="50%"}
+
+<img src="https://d2eip9sf3oo6c2.cloudfront.net/series/square_covers/000/000/025/full/EGH_Redux-New.png?1496436379" width="48">
 
 # Learning Redux
 This document will be a collection of my notes as I learn Redux, I will also post the supplements that I have used to form this document below. Almost all of the information will be repeated within the supplements, it's just that I have noted them down in a way to gather the information collectively and written in a way to make it more understandable for myself.

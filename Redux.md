@@ -168,3 +168,47 @@ const listAfterSlice = listBeforeSlice.slice(2,4);
 console.log(listAfterSlice);
 // Returns [3, 4]
 ```
+
+##### Avoiding Object Mutations
+
+When working with objects we may want to alter a piece of data present in that object and return it but with a pure approach. This would mean we cannot alter the original object. One way of doing so would be to return a new object with the specific field modified as follows:
+```javascript
+const changeFriendship = (person) => {
+  return {
+    name: "Mohammad",
+    age: "21",
+    friend: !person.friend
+  }
+}
+```
+
+However there is a key problem by doing this, later on in our application we might add fields to our object, possibly a birth date or some other property. If we do not remember this piece of code then we will forget to update it, resulting in a future bug that will be tough to catch.
+
+This is why we must use the **Object.assign()** method to assign properties to a target object and can return a new object.
+
+```javascript
+const changeFriendship = (person) => {
+  return Object.assign({}, person, {
+    friend: !person.friend
+  });
+};
+```
+
+#### Reducer Composition
+
+When using reducers we want to make sure we don't have a lot going on inside of the reducer, this means we should extract functions that do other things within our reducer function. So if we think about any time that a function is doing too many things at once, we can pull out the excess functions and call them so that each function does one specific thing.
+
+##### Reducer Composition for Objects
+
+Considering the concept behind reducer composition, we want each function to handle a specific task. Now when it comes to specific objects we want to let different reducers handle different parts of the state tree and then combine the results. This is the main way to approach reducers in Redux applications and is such a common practice that Redux provides a **combineReducers()** function.
+
+The function basically takes away the dirty work of writing the code for combining the end result and just generates a top level reducer. Combine reducers just takes on argument that is an object, and that object specifies the mapping between the state fields and the reducers that manage them. The function returns an overall reducer function.
+
+*NOTE: By always naming reducers after the state keys that they manage, ES6 allows for object literal shorthand notation, meaning less writing*
+
+```javascript
+const todoApp = combineReducers({
+  todos, // "todos" is both the state field and reducer function name
+  visibilityFilter // "visibilityFilter" is both the state field and reducer function name
+});
+```
